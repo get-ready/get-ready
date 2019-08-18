@@ -4,7 +4,7 @@ services:
   - docker
 
 before_install:
-  - mkdir -p /home/travis/.config/getready/default/Dockerfile
+  - mkdir -p /home/travis/.config/getready/default
   - echo "FROM getready/base" >> /home/travis/.config/getready/default/Dockerfile
 
 script:

@@ -12,15 +12,18 @@ RUNNING_CONTAINERS=$(docker ps)
 
 if [ "$1" == "stop" ]; then
     docker stop $CONTAINER_NAME
+    echo "Environment stopped."
     exit
 fi
 
 if [[ $RUNNING_CONTAINERS != *$CONTAINER_NAME* ]]; then
     docker build -t get-ready/base -f ~/.config/get-ready/default/Dockerfile ~/.config/get-ready/default
     docker build -t $IMAGE_NAME .
-    docker run -d -it --rm -v $(pwd):/src --name $CONTAINER_NAME $(cat ~/.config/get-ready/default/dockeropts) $IMAGE_NAME 
+    docker run -d -it --rm -v $(pwd):/src --name $CONTAINER_NAME $(cat dockeropts) $(cat ~/.config/get-ready/default/dockeropts) $IMAGE_NAME 
+    echo "Environment started."
 fi
 
 if [ ! -z "$1" ]; then
-    docker exec -it $CONTAINER_NAME $1
+    echo "Running ${@:1}"
+    docker exec -it $CONTAINER_NAME ${@:1}
 fi

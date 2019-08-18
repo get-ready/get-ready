@@ -16,8 +16,8 @@ if [ "$1" == "stop" ]; then
 fi
 
 if [[ $RUNNING_CONTAINERS != *$CONTAINER_NAME* ]]; then
-    docker build -t project .
-    docker build -t $IMAGE_NAME -f ~/.config/get-ready/default/Dockerfile ~/.config/get-ready/default
+    docker build -t get-ready/base -f ~/.config/get-ready/default/Dockerfile ~/.config/get-ready/default
+    docker build -t $IMAGE_NAME .
     docker run -d -it --rm -v $(pwd):/src --name $CONTAINER_NAME $(cat ~/.config/get-ready/default/dockeropts) $IMAGE_NAME 
 fi
 

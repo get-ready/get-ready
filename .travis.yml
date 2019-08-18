@@ -1,0 +1,7 @@
+language: generic
+
+services:
+  - docker
+
+script:
+  - ./get-ready.sh bats tests
